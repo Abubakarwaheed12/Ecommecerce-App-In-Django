@@ -1,0 +1,30 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %}Login{% endblock title %}
+{% block main-content %}
+<div class="container">
+ <div class="row my-3">
+  <div class="col-sm-6 offset-sm-3">
+   <h3>Forgot Password</h3>
+   <hr>
+   {% if messages %}
+   {% for message in messages %}
+   <p class="alert alert-danger">{{message}}</p>
+   {% endfor %}
+   {% endif %}
+
+<h5 class="text-center m-4">Reset Your Password</h5>
+<p class="text-center mt-5">After Successfully Submiting the form check your mail box</p>
+<form action="" method="post"  class="shadow p-5">
+    {% csrf_token %}
+    <div class="mb-3">
+     <label for="username" class="form-label">Enter Username</label>
+     <input type="text" class="form-control" id="username" name="username" aria-describedby="emailHelp">
+    </div>
+    <input type="submit" class="btn btn-primary mt-4" value="Send">
+    
+   </form>
+  </div>
+ </div>
+</div>
+{% endblock main-content %}
