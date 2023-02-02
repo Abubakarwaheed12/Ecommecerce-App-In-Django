@@ -1,5 +1,6 @@
-from django.shortcuts import render
-
+from django.shortcuts import render , redirect
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 def home(request):
  return render(request, 'app/home.html')
 
@@ -7,7 +8,10 @@ def product_detail(request):
  return render(request, 'app/productdetail.html')
 
 def add_to_cart(request):
- return render(request, 'app/addtocart.html')
+    if not request.user.is_authenticated:
+        messages.warning(request, 'login first to access the Cart Page')
+        return redirect('login')
+    return render(request, 'app/addtocart.html')
 
 def buy_now(request):
  return render(request, 'app/buynow.html')
