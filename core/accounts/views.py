@@ -2,7 +2,8 @@ from django.shortcuts import render , redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate , login , logout
 from django.contrib import messages
-from accounts.helpers import send_fogot_password_mail
+from accounts.helpers import send_forget_password_mail
+from accounts.models import Profile
 # below library for generating random strings
 import uuid
 # Create your views here.
@@ -45,32 +46,62 @@ def customerregistration(request):
     return render(request, 'customerregistration.html')
 
 
-# Forgot Password
-def forgotPassword(request):
-    try:
-        if request.method=='POST':
-            uname=request.POST.get('username')
-            # print(uname)
-            if not User.objects.filter(username=uname).first():
-                messages.warning(request, 'user not Found')
-                return redirect('forgotPassword')
-
-            user_obj=User.objects.get(username=uname)
-            # email=user_obj.objects.get(email)
-            token=str(uuid.uuid4())
-            send_fogot_password_mail(user_obj, token)
-            messages.success(request, 'email sent')
-            return redirect('forgotPassword')
-            
-    except Exception as e:
-        print(e)
-    return render(request, 'forgot.html')
-    
-# Reset Password
-def reset_password(request):
-    return render(request, 'reset_password.html')
 # Logout
 
 def logoutuser(request):
     logout(request)
     return redirect('/')
+
+
+
+def ChangePassword(request , token):
+    context={}
+    try:
+        profile_obj=Profile.objects.get(forget_password_token=token)
+        print(profile_obj)
+        context={'user_id':profile_obj.user.id}
+        if request.method=='POST':
+            id=request.POST.get('u_id')
+            pass1=request.POST.get('pass1')
+            pass2=request.POST.get('pass2')
+            print(id , pass1 , pass2)      
+            if id is None:
+                  messages.warning(request, 'no user found')
+                  return redirect(f'resest_password/{token}')
+            if pass1 !=pass2:
+                messages.warning(request, 'both passwords should be same ')
+                return redirect(f'resest_password/{token}')
+            userobj=User.objects.get(id=id)
+            userobj.set_password(pass1)
+            userobj.save()
+            messages.success(request, 'your password has been updated successfully now you can login')
+                        
+    except Exception as e :
+        print(e)
+    return render(request, 'reset_password.html' , context=context)
+
+
+def ForgetPassword(request):
+    try:
+        if request.method == 'POST':
+            username = request.POST.get('username')
+            
+            if not User.objects.filter(username=username).first():
+                messages.success(request, 'Not user found with this username.')
+                return redirect('forgotPassword')
+            
+            user_obj = User.objects.get(username = username)
+            mail=user_obj.email
+            token = str(uuid.uuid4())
+            profile_obj= Profile.objects.get(user = user_obj)
+            profile_obj.forget_password_token = token
+            profile_obj.save()
+            send_forget_password_mail(user_obj.email , token)
+            messages.success(request, f'An email is sent to your email address {mail}.')
+            return redirect('forgotPassword')
+                
+    
+    
+    except Exception as e:
+        print(e)
+    return render(request , 'forgot.html')
