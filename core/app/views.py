@@ -1,7 +1,7 @@
 from django.shortcuts import render , redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from app.models import AllProducts
+from app.models import AllProducts , Cart
 # Home View
 def home(request):
     products=AllProducts.objects.all()[:4]
@@ -9,7 +9,6 @@ def home(request):
         'products':products,
     }
     return render(request, 'app/home.html' , context)
-
 
 
 
@@ -31,10 +30,11 @@ def product_detail(request , id):
 
 
 #  Add to Cart View
+@login_required(url='login')
 def add_to_cart(request):
-    if not request.user.is_authenticated:
-        messages.warning(request, 'login first to access the Cart Page')
-        return redirect('login')
+    # if not request.user.is_authenticated:
+    #     messages.warning(request, 'login first to access the Cart Page')
+    #     return redirect('login')
     
     user=request.user
     prod_id=request.GET.get('product_id')
