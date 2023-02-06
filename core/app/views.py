@@ -30,16 +30,14 @@ def product_detail(request , id):
 
 
 #  Add to Cart View
-@login_required(url='login')
+@login_required(login_url='login')
 def add_to_cart(request):
-    # if not request.user.is_authenticated:
-    #     messages.warning(request, 'login first to access the Cart Page')
-    #     return redirect('login')
-    
     user=request.user
     prod_id=request.GET.get('product_id')
     print(f'the product id  is : {prod_id}')
     return render(request, 'app/addtocart.html')
+
+
 
 def buy_now(request):
  return render(request, 'app/buynow.html')
