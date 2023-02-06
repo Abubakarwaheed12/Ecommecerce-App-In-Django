@@ -70,11 +70,8 @@
             </a>
           </div>
           <div class="card-body">
-            <a href="" class="text-reset">
+            <a href="{% url 'product-detail' product.id %}" class="text-reset">
               <h5 class="card-title mb-3">{{product.title}}</h5>
-            </a>
-            <a href="" class="text-reset">
-              <p>Category</p>
             </a>
             <h6 class="mb-3">Rs : {{product.price}}</h6>
           </div>
