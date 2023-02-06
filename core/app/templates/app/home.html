@@ -50,14 +50,43 @@
  <h2>ShoppingX Deals of The Day</h2>
  <a href="{% url 'productlisting' %}" class="btn btn-primary">See All</a>
 </div>
- <!-- Slider 1 -->
- <div class="owl-carousel" id="slider1">
-  <a href="{% url 'product-detail' %}" class="btn"><div class="item"><img src="{% static 'app/images/product/1.jpg' %}" alt="" height="200px"><span class="fw-bold">Product 1</span><br><span class="fs-5">Rs. 500</span></div></a>
-  <div class="item"><img src="{% static 'app/images/product/2.jpg' %}" alt="" height="200px"><span class="fw-bold">Product 2</span><br><span class="fs-5">Rs. 300</span></div>
-  <div class="item"><img src="{% static 'app/images/product/3.jpg' %}" alt="" height="200px"><span class="fw-bold">Product 3</span><br><span class="fs-5">Rs. 100</span></div>
-  <div class="item"><img src="{% static 'app/images/product/4.jpg' %}" alt="" height="200px"><span class="fw-bold">Product 4</span><br><span class="fs-5">Rs. 700</span></div>
+ <!-- Section cards -->
+ <section style="background-color: #eee;">
+  <div class="text-center container py-5">
+    <h4 class="mt-4 mb-5"><strong>Best Deals</strong></h4>
 
- </div>
+    <div class="row">
+      {% for product in products %}
+      <div class="col-lg-4 col-md-12 mb-4">
+        <div class="card">
+          <div class="bg-image hover-zoom ripple ripple-surface ripple-surface-light"
+            data-mdb-ripple-color="light">
+            <img src="{{product.img.url}}"
+              class="w-100" />
+            <a href="#!">
+              <div class="hover-overlay">
+                <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+              </div>
+            </a>
+          </div>
+          <div class="card-body">
+            <a href="" class="text-reset">
+              <h5 class="card-title mb-3">{{product.title}}</h5>
+            </a>
+            <a href="" class="text-reset">
+              <p>Category</p>
+            </a>
+            <h6 class="mb-3">Rs : {{product.price}}</h6>
+          </div>
+        </div>
+      </div>
+{% endfor %}
+ 
+    </div>
+
+
+  </div>
+</section>
 </div>
 <!-- End 1st Product Slider -->
 

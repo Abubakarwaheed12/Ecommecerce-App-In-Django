@@ -1,17 +1,34 @@
 from django.shortcuts import render , redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-
+from app.models import AllProducts
 # Home View
 def home(request):
- return render(request, 'app/home.html')
+    products=AllProducts.objects.all()[:4]
+    context={
+        'products':products,
+    }
+    return render(request, 'app/home.html' , context)
 
 
 
 
 # product_listing View
 def product_listing(request):
-    return render(request, 'app/productlist.html')
+    products=AllProducts.objects.all()[:4]
+    context={
+        'products':products,
+    }
+    return render(request, 'app/productlist.html' , context)
+ 
+# Product Detail Page 
+def product_detail(request , id):
+    product=AllProducts.objects.get(pk=id)
+    context={
+        'product':product,
+    }
+    return render(request, 'app/productdetail.html' , context)
+
 
 
 def add_to_cart(request):
@@ -42,5 +59,3 @@ def checkout(request):
  return render(request, 'app/checkout.html')
 
 
-def product_detail(request):
- return render(request, 'app/productdetail.html')
