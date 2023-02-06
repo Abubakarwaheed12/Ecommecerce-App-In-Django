@@ -1,11 +1,18 @@
 from django.shortcuts import render , redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+
+# Home View
 def home(request):
  return render(request, 'app/home.html')
 
-def product_detail(request):
- return render(request, 'app/productdetail.html')
+
+
+
+# product_listing View
+def product_listing(request):
+    return render(request, 'app/productlist.html')
+
 
 def add_to_cart(request):
     if not request.user.is_authenticated:
@@ -33,3 +40,7 @@ def mobile(request):
 
 def checkout(request):
  return render(request, 'app/checkout.html')
+
+
+def product_detail(request):
+ return render(request, 'app/productdetail.html')
