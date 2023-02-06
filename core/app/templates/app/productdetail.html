@@ -9,11 +9,16 @@
   </div>
   <div class="col-sm-5 offset-sm-1">
    <h2>{{product.title}}</h2>
+   <h6>Stock : {{product.stock}}</h6>
+
    <hr>
    <p></p> <br>
    <h4>Rs. {{product.price}} <small class="fw-light text-decoration-line-through">15999</small></h4> <br>
-   <a href="{% url 'add-to-cart' %}" class="btn btn-primary shadow px-5 py-2">Add to Cart</a>
-   <a href="{% url 'buy-now' %}" class="btn btn-danger shadow px-5 py-2 ms-4">Buy Now</a>
+
+   <form action="/add-to-cart/">
+        <input type="hidden" name="product_id" value="{{product.id}}">
+        <button type="submit" class="btn btn-primary shadow px-5 py-2">Add to Cart</button>
+   </form>
    <h5 class="mt-5">Product Details  : </h5>
    <ul>
     <li>{{product.desc}}</li>
