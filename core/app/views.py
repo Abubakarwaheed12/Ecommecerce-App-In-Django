@@ -34,7 +34,9 @@ def product_detail(request , id):
 def add_to_cart(request):
     user=request.user
     prod_id=request.GET.get('product_id')
-    print(f'the product id  is : {prod_id}')
+    prod=AllProducts.objects.get(id=prod_id)
+    print(prod)
+    # print(f'the product id  is : {prod_id}')
     return render(request, 'app/addtocart.html')
 
 
