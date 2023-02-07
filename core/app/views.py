@@ -35,11 +35,19 @@ def add_to_cart(request):
     user=request.user
     prod_id=request.GET.get('product_id')
     prod=AllProducts.objects.get(id=prod_id)
+    Cart(user=user , Item=prod).save()
     print(prod)
-    # print(f'the product id  is : {prod_id}')
     return render(request, 'app/addtocart.html')
 
-
+#  Show Cart 
+def show_cart(request):
+    if request.user.is_authenticated:
+        user=request.user
+        cart=Cart.objects.filter(user=user)
+        context={
+            'carts':cart,
+        }
+        return render(request, 'app/addtocart.html')
 
 def buy_now(request):
  return render(request, 'app/buynow.html')
