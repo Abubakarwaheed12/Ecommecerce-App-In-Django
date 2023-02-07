@@ -21,3 +21,10 @@ $('#slider1, #slider2, #slider3').owlCarousel({
         }
     }
 })
+
+//  JS for increase and decrease Quantity 
+
+$('.minus-cart').click(function(){
+    var id=$(this).attr('pid').toString();
+    console.log(id)
+})

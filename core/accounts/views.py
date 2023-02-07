@@ -15,11 +15,12 @@ def loginuser(request):
         uname=request.POST.get('username')
         pass1=request.POST.get('pass1')
         print(uname , pass1)
-        user=authenticate(request, username=uname , password=pass1)
-        if user is not None:
-            login(request, user)
+        user1=authenticate(request,username=uname,password=pass1)
+        print(user1)
+        if user1 is not None:
+            login(request, user1)
             messages.success(request, 'login Successfullty')
-            return redirect('add-to-cart')
+            return redirect('cart')
         else:
             messages.warning(request, 'please enter correct information')
     return render(request, 'login.html')
@@ -39,8 +40,7 @@ def customerregistration(request):
             if pass1 != pass2 :
                 messages.warning(request, 'your password does not match Now You Can Login')
             else:
-                user=User(username=uname , email=email , password=pass1)
-                user.save()
+                User.objects.create_user(username=uname , email=email , password=pass1)
                 messages.success(request, 'your account has been created successfully')
 
     return render(request, 'customerregistration.html')

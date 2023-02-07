@@ -63,7 +63,7 @@
                 {% if request.user %}
                 {{request.user}}
                 {% else %}
-                None
+                <p>No user</p>
                 {% endif %}
               </a>
               <ul class="dropdown-menu" aria-labelledby="profileDropdown">
@@ -74,7 +74,7 @@
               </ul>
             </li>
             <li class="nav-item mx-2">
-             <a href="{% url 'add-to-cart' %}" class="nav-link text-white"><span class="badge bg-danger">4</span> Cart </a>
+             <a href="{% url 'cart' %}" class="nav-link text-white"><span class="badge bg-danger">4</span> Cart </a>
             </li>
             {% if request.user.is_anonymous %}
             <li class="nav-item mx-2">
