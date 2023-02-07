@@ -2,6 +2,7 @@ from django.shortcuts import render , redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from app.models import AllProducts , Cart
+from django.db.models import Q
 # Home View
 def home(request):
     products=AllProducts.objects.all()[:4]
@@ -64,6 +65,17 @@ def show_cart(request):
             return render(request, 'app/addtocart.html' , context)
         else:
             return render(request, 'app/emptycart.html')
+
+# Minus 
+def cart_minus(request):
+    if request.method=='GET':
+        id=request.GET['prod_id']
+        print(id)
+        carts=Cart.objects.filter(Q(Item=id) & Q(user=request.user))
+        print(carts)
+    return render(request, 'app/addtocart.html')
+
+
 
 def buy_now(request):
  return render(request, 'app/buynow.html')
