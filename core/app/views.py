@@ -1,4 +1,4 @@
-from django.shortcuts import render , redirect
+from django.shortcuts import render , redirect 
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from app.models import AllProducts , Cart
@@ -71,10 +71,25 @@ def cart_plus(request):
     if request.method=='GET':
         id=request.GET['prod_id']
         c=Cart.objects.get(Q(Item=id) & Q(user=request.user))
-        print(c)
-        c.Quantity =2
+        # print(c)
+        c.Quantity +=1
         c.save()
-        print(cart)
+        print(c)
+        
+        # print('cart plus is called ')
+    return render(request, 'app/addtocart.html')
+
+# Cart Minus
+def cart_minus(request):
+    if request.method=='GET':
+        id=request.GET['prod_id']
+        c=Cart.objects.get(Q(Item=id) & Q(user=request.user))
+        # print(c)
+        c.Quantity -=1
+        c.save()
+        print(c)
+        
+        # print('cart plus is called ')
     return render(request, 'app/addtocart.html')
 
 
