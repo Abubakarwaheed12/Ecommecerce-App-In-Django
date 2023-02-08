@@ -56,7 +56,9 @@ $('.minus-cart').click(function () {
 
 $('.remove').click(function () {
     var id = $(this).attr('pid').toString();
-
+    var amount=document.getElementById('am')
+    var total_amount=document.getElementById('tm')
+    var cid=document.getElementById('cid')
     console.log(id)
     $.ajax({
         type:'GET',
@@ -66,6 +68,9 @@ $('.remove').click(function () {
         },
         success:function(data){
             console.log(data)
+            total_amount.innerText=data.total_amount;
+            amount.innerText=data.amount;
+            cid.parentNode.parentNode.parentNode.parentNode.remove()
         }
     })
 })
