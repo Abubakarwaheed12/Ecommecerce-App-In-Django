@@ -66,7 +66,7 @@ def show_cart(request):
         else:
             return render(request, 'app/emptycart.html')
 
-# Minus 
+# Plus 
 def cart_minus(request):
     if request.method=='GET':
         id=request.GET['prod_id']
