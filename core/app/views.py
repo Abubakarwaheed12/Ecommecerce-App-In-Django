@@ -73,6 +73,7 @@ def cart_plus(request):
         id=request.GET['prod_id']
         c=Cart.objects.get(Q(Item=id) & Q(user=request.user))
         c.Quantity +=1
+        c.Item.price=c.Item.price*c.Quantity
         c.save()
         amount=0.00
         shipping_amount=70.0
@@ -88,6 +89,7 @@ def cart_plus(request):
                 'amount':amount,
                 'total_amount':total_amount,
                 'status':200,
+                'item_total_price':c.Item.price,
             }
             
     return JsonResponse(data)
@@ -98,7 +100,9 @@ def cart_minus(request):
         id=request.GET['prod_id']
         c=Cart.objects.get(Q(Item=id) & Q(user=request.user))
         c.Quantity =c.Quantity - 1
+        c.Item.price=c.Item.price*c.Quantity
         c.save()
+        print(c.Item.price)
         amount=0.00
         shipping_amount=70.0
         total_amount=0.0
@@ -112,11 +116,23 @@ def cart_minus(request):
                 'quantity':c.Quantity,
                 'amount':amount,
                 'total_amount':total_amount,
+                'item_total_price':c.Item.price,
             }        
     return JsonResponse(data)
 
 
 # Remove Item From The Cart
+def removeItem(request):
+    if request.method=='GET':
+        cid=request.GET['prod_id']
+        cartInsatance=Cart.objects.get(Q(Item=cid) & Q(user=request.user))
+        cartInsatance.delete()
+        # print(cartInsatance)
+        print(cid)
+        
+    return redirect('cart')
+
+
 
 
 def buy_now(request):
