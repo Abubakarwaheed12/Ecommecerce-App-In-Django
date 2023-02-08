@@ -16,7 +16,13 @@ def home(request):
 
 # product_listing View
 def product_listing(request):
-    products=AllProducts.objects.all()[:4]
+    products=AllProducts.objects.all()
+    q=request.GET.get('q')
+    print(q)
+    if q:
+        products=AllProducts.objects.filter(title__contains=q)
+    else:
+        q=''
     context={
         'products':products,
     }
@@ -37,7 +43,11 @@ def add_to_cart(request):
     user=request.user
     prod_id=request.GET.get('product_id')
     prod=AllProducts.objects.get(id=prod_id)
-    Cart(user=user , Item=prod).save()
+    cart,created = Cart.objects.get_or_create(user=user , Item=prod )
+    cart.save()
+    if Cart.objects.filter(Item=prod).exists():
+        cart.Quantity += 1
+    cart.save()
     print(prod)
     return redirect('cart')
 

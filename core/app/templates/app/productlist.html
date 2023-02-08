@@ -5,17 +5,14 @@
 <section style="background-color: #eee;">
     <div class="container py-5">  
     <!-- Search Product Functionality -->
-    <form action="" method="GET">
-    <div class="input-group">
-      <div class="form-outline">
-        <input type="search" id="form1" class="form-control" />
-        <label class="form-label" for="form1">Search</label>
-      </div>
-      <button type="submit" class="btn btn-primary">
-        <i class="fas fa-search"></i>
-      </button>
-    </div>
-  </form>
+    <form action="" class="mt-5 mb-5" method="GET" >
+  <div class="mb-3">
+    <label for="" class="form-label">Search Product</label>
+    <input type="seach" class="form-control" name="q" id="" aria-describedby="emailHelpId" placeholder="Search">
+    <button class="btn btn-success mt-4">Search</button>
+  </div>
+</form>
+
       <!-- Show All Products Not categorized -->
         {% for product in products %}
       <div class="row justify-content-center mb-3">
