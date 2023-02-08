@@ -3,7 +3,20 @@
 {% block title %}Product Listing{% endblock title %}
 {% block main-content %}
 <section style="background-color: #eee;">
-    <div class="container py-5">
+    <div class="container py-5">  
+    <!-- Search Product Functionality -->
+    <form action="" method="GET">
+    <div class="input-group">
+      <div class="form-outline">
+        <input type="search" id="form1" class="form-control" />
+        <label class="form-label" for="form1">Search</label>
+      </div>
+      <button type="submit" class="btn btn-primary">
+        <i class="fas fa-search"></i>
+      </button>
+    </div>
+  </form>
+      <!-- Show All Products Not categorized -->
         {% for product in products %}
       <div class="row justify-content-center mb-3">
         <div class="col-md-12 col-xl-10">
