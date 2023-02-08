@@ -6,7 +6,7 @@ $('.plus-cart').click(function () {
     var eml = this.parentNode.children['2']
     var amount=document.getElementById('am')
     var total_amount=document.getElementById('tm')
-    var item_t_price=document.getElementById('itemPrice')
+    var itemprice=document.getElementById('itemPrice')
     console.log(id)
     $.ajax({
         type: 'GET',
@@ -19,7 +19,7 @@ $('.plus-cart').click(function () {
             eml.innerText = data.quantity
             amount.innerText=data.amount
             total_amount.innerText=data.total_amount
-            item_t_price.innerText=data.item_total_price
+            itemprice.innerText=data.item_total_price
             if (data.status == 200) {
                 
                 console.log('your Status Is Okay ')
@@ -34,7 +34,7 @@ $('.minus-cart').click(function () {
     var eml = this.parentNode.children['2']
     var amount=document.getElementById('am')
     var total_amount=document.getElementById('tm')
-    var item_t_price=document.getElementById('itemPrice')
+    var itemprice=document.getElementById('itemPrice')
     console.log(id)
     $.ajax({
         type: 'GET',
@@ -47,7 +47,7 @@ $('.minus-cart').click(function () {
             eml.innerText = data.quantity;
             amount.innerText=data.amount;
             total_amount.innerText=data.total_amount;
-            item_t_price.innerText=data.item_total_price;
+            itemprice.innerText=data.item_total_price;
         }
     })
 })

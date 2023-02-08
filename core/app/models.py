@@ -7,7 +7,7 @@ class AllProducts(models.Model):
     desc=models.CharField(max_length=400)
     img=models.ImageField(upload_to='imgs')
     stock=models.IntegerField()
-    available=models.BooleanField()
+    available=models.BooleanField(default=True)
     price=models.IntegerField()
     
     def __str__(self):
