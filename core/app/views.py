@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from app.models import AllProducts , Cart
 from django.db.models import Q
+from django.http import JsonResponse
 # Home View
 def home(request):
     products=AllProducts.objects.all()[:4]
@@ -71,27 +72,51 @@ def cart_plus(request):
     if request.method=='GET':
         id=request.GET['prod_id']
         c=Cart.objects.get(Q(Item=id) & Q(user=request.user))
-        # print(c)
         c.Quantity +=1
         c.save()
-        print(c)
-        
-        # print('cart plus is called ')
-    return render(request, 'app/addtocart.html')
+        amount=0.00
+        shipping_amount=70.0
+        total_amount=0.0
+        cart_product=[p for p in Cart.objects.all() if p.user==request.user]
+        for p in cart_product:
+            temp_amount=(p.Quantity*p.Item.price)
+            amount +=temp_amount
+            total_amount=amount+shipping_amount
+            print(temp_amount)        
+            data={
+                'quantity':c.Quantity,
+                'amount':amount,
+                'total_amount':total_amount,
+                'status':200,
+            }
+            
+    return JsonResponse(data)
 
 # Cart Minus
 def cart_minus(request):
     if request.method=='GET':
         id=request.GET['prod_id']
         c=Cart.objects.get(Q(Item=id) & Q(user=request.user))
-        # print(c)
-        c.Quantity -=1
+        c.Quantity =c.Quantity - 1
         c.save()
-        print(c)
-        
-        # print('cart plus is called ')
-    return render(request, 'app/addtocart.html')
+        amount=0.00
+        shipping_amount=70.0
+        total_amount=0.0
+        cart_product=[p for p in Cart.objects.all() if p.user==request.user]
+        for p in cart_product:
+            temp_amount=(p.Quantity*p.Item.price)
+            amount +=temp_amount
+            total_amount=amount+shipping_amount
+            print(temp_amount)        
+            data={
+                'quantity':c.Quantity,
+                'amount':amount,
+                'total_amount':total_amount,
+            }        
+    return JsonResponse(data)
 
+
+# Remove Item From The Cart
 
 
 def buy_now(request):
