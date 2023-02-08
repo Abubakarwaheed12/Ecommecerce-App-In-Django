@@ -24,17 +24,17 @@ $('#slider1, #slider2, #slider3').owlCarousel({
 
 //  JS for increase and decrease Quantity 
 
-$('.minus-cart').click(function(){
+$('.plus-cart').click(function(){
     var id=$(this).attr('pid').toString();
     console.log(id)
-    // $.ajax({
-    //     type:'GET',
-    //     url:'/minus/',
-    //     data:{
-    //         prod_id:id,
-    //     },
-    //     success:function(data){
+    $.ajax({
+        type:'GET',
+        url:'/minus/',
+        data:{
+            prod_id:id,
+        },
+        success:function(data){
 
-    //     }
-    // })
+        }
+    })
 })

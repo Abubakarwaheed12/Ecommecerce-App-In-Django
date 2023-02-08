@@ -67,11 +67,12 @@ def show_cart(request):
             return render(request, 'app/emptycart.html')
 
 # Plus 
-def cart_minus(request):
+def cart_plus(request):
     if request.method=='GET':
         id=request.GET['prod_id']
         c=Cart.objects.get(Q(Item=id) & Q(user=request.user))
-        c.Quantity +=1
+        print(c)
+        c.Quantity =2
         c.save()
         print(cart)
     return render(request, 'app/addtocart.html')

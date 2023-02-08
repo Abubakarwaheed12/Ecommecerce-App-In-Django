@@ -15,5 +15,5 @@ urlpatterns = [
     path('changepassword/', views.change_password, name='changepassword'),
     path('mobile/', views.mobile, name='mobile'),
     path('checkout/', views.checkout, name='checkout'),
-    path('productlisting', views.product_listing , name='productlisting')
+    path('productlisting', views.product_listing , name='productlisting'),
 ]
