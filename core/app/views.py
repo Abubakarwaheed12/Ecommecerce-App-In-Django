@@ -60,6 +60,8 @@ def add_to_cart(request):
     prod=AllProducts.objects.get(id=prod_id)
     cart,created = Cart.objects.get_or_create(user=user , Item=prod )
     cart.save()
+    prod.stock -=1
+    prod.save()
     if not created:
         cart.Quantity +=1
         cart.save()
@@ -105,6 +107,9 @@ def show_cart(request):
 def cart_plus(request):
     if request.method=='GET':
         id=request.GET['prod_id']
+        i=AllProducts.objects.get(id=id)
+        i.stock -=1
+        i.save()
         c=Cart.objects.get(Q(Item=id) & Q(user=request.user))
         c.Quantity +=1
         c.Item.price=c.Item.price*c.Quantity
@@ -124,6 +129,7 @@ def cart_plus(request):
                 'total_amount':total_amount,
                 'status':200,
                 'item_total_price':c.Item.price,
+                'stock':c.Item.stock,
             }
             
     return JsonResponse(data)
@@ -132,13 +138,16 @@ def cart_plus(request):
 def cart_minus(request):
     if request.method=='GET':
         id=request.GET['prod_id']
+        i=AllProducts.objects.get(id=id)
+        i.stock +=1
+        i.save()
         c=Cart.objects.get(Q(Item=id) & Q(user=request.user))
-        if c.Quantity==1:
-            c.Quantity =1
+        if  c.Quantity == 0:
+            c.delete()
         else:
             c.Quantity =c.Quantity - 1
-        c.Item.price=c.Item.price*c.Quantity
-        c.save()
+            c.Item.price=c.Item.price*c.Quantity
+            c.save()
         print(c.Item.price)
         amount=0.00
         shipping_amount=70.0
@@ -154,7 +163,8 @@ def cart_minus(request):
                 'amount':amount,
                 'total_amount':total_amount,
                 'item_total_price':c.Item.price,
-            }        
+                'stock':i.stock,
+            }  
     return JsonResponse(data)
 
 

@@ -17,10 +17,14 @@
 
    <form action="/add-to-cart/">
         <input type="hidden" name="product_id" value="{{product.id}}">
-        {% if product.stock > 0 %}
-        <button type="submit" class="btn btn-primary shadow px-5 py-2">Add to Cart</button>
-        {% else %}
+        {% if product.stock < 1 %}
         <p>Product is out of stock </p>
+        {% else %}
+          {% if product.available  %}
+          <button type="submit" class="btn btn-primary shadow px-5 py-2">Add to Cart</button>
+          {% else %}
+          <p>Product is not available for Sale </p>
+          {% endif %}
         {% endif %}
    </form>
    <h5 class="mt-5">Product Details  : </h5>

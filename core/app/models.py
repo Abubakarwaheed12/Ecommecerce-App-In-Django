@@ -6,7 +6,7 @@ class AllProducts(models.Model):
     title=models.CharField(max_length=200)
     desc=models.CharField(max_length=400)
     img=models.ImageField(upload_to='imgs')
-    stock=models.IntegerField()
+    stock=models.IntegerField(default=0)
     available=models.BooleanField(default=True)
     price=models.IntegerField()
     
