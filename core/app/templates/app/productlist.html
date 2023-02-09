@@ -3,56 +3,55 @@
 {% block title %}Product Listing{% endblock title %}
 {% block main-content %}
 <section style="background-color: #eee;">
-    <div class="container py-5">  
+  <div class="container py-5">
     <!-- Search Product Functionality -->
-    <form action="" class="mt-5 mb-5" method="GET" >
-  <div class="mb-3 ">
-    <label for="" class="form-label">Search Product</label>
-    <input type="seach" class="form-control" name="q" id="" aria-describedby="emailHelpId" placeholder="Search">
-    <button class="btn btn-success mt-4">Search</button>
-  </div>
-</form>
+    <form action="" class="mt-5 mb-5" method="GET">
+      <div class="mb-3 ">
+        <label for="" class="form-label">Search Product</label>
+        <input type="seach" class="form-control" name="q" id="" aria-describedby="emailHelpId" placeholder="Search">
+        <button class="btn btn-success mt-4">Search</button>
+      </div>
+    </form>
 
-      <!-- Show All Products Not categorized -->
-        {% for product in products %}
-      <div class="row justify-content-center mb-3">
-        <div class="col-md-12 col-xl-10">
-          <div class="card shadow-0 border rounded-3">
-            <div class="card-body">
-              <div class="row">
-                <div class="col-md-12 col-lg-3 col-xl-3 mb-4 mb-lg-0">
-                  <div class="bg-image hover-zoom ripple rounded ripple-surface">
-                    <img src="{{product.img.url}}"
-                      class="w-100" />
-                    <a href="#!">
-                      <div class="hover-overlay">
-                        <div class="mask" style="background-color: rgba(253, 253, 253, 0.15);"></div>
-                      </div>
-                    </a>
-                  </div>
+    <!-- Show All Products Not categorized -->
+    {% for product in products %}
+    <div class="row justify-content-center mb-3">
+      <div class="col-md-12 col-xl-10">
+        <div class="card shadow-0 border rounded-3">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-12 col-lg-3 col-xl-3 mb-4 mb-lg-0">
+                <div class="bg-image hover-zoom ripple rounded ripple-surface">
+                  <img src="{{product.img.url}}" class="w-100" />
+                  <a href="#!">
+                    <div class="hover-overlay">
+                      <div class="mask" style="background-color: rgba(253, 253, 253, 0.15);"></div>
+                    </div>
+                  </a>
                 </div>
-                <div class="col-md-6 col-lg-6 col-xl-6">
-                  <h5>{{product.title}}</h5>
-                  <p class=" mb-4 mb-md-0">
-                   {{product.desc}}
-                  </p>
+              </div>
+              <div class="col-md-6 col-lg-6 col-xl-6">
+                <h5>{{product.title}}</h5>
+                <p class=" mb-4 mb-md-0">
+                  {{product.desc}}
+                </p>
+              </div>
+              <div class="col-md-6 col-lg-3 col-xl-3 border-sm-start-none border-start">
+                <div class="d-flex flex-row align-items-center mb-1">
+                  <h6 class="mb-1 me-1">Rs : {{product.price}}</h6>
                 </div>
-                <div class="col-md-6 col-lg-3 col-xl-3 border-sm-start-none border-start">
-                  <div class="d-flex flex-row align-items-center mb-1">
-                    <h6 class="mb-1 me-1">Rs : {{product.price}}</h6>
-                  </div>
-                    <h4>Stock : {{product.stock}}</h4>
-                  <div class="d-flex flex-column mt-4">
-                    <a href="{% url 'product-detail' product.id %}" class="btn btn-primary btn-sm">Details</a>
-                  
-                  </div>
+                <h4>Stock : {{product.stock}}</h4>
+                <div class="d-flex flex-column mt-4">
+                  <a href="{% url 'product-detail' product.id %}" class="btn btn-primary btn-sm">Details</a>
+
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      {% endfor %}
     </div>
-  </section>
+    {% endfor %}
+  </div>
+</section>
 {% endblock main-content %}
