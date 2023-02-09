@@ -7,8 +7,6 @@ $('.plus-cart').click(function () {
     var amount=document.getElementById('am')
     var total_amount=document.getElementById('tm')
     var itemprice=document.getElementById('itemPrice')
-    var stocks=document.getElementById('stock')
-    console.log(stocks)
     console.log(id)
     $.ajax({
         type: 'GET',
@@ -22,9 +20,7 @@ $('.plus-cart').click(function () {
             amount.innerText=data.amount
             total_amount.innerText=data.total_amount
             itemprice.innerText=data.item_total_price
-            stocks.innerHTML=data.stock
             if (data.status == 200) {
-                
                 console.log('your Status Is Okay ')
             }
         }
@@ -39,8 +35,6 @@ $('.minus-cart').click(function () {
     var total_amount=document.getElementById('tm')
     var itemprice=document.getElementById('itemPrice')
     var cid=document.getElementById('cid')
-    var stocks=document.getElementById('stock')
-    console.log(sto)
     $.ajax({
         type: 'GET',
         url: '/minus/',
@@ -53,8 +47,7 @@ $('.minus-cart').click(function () {
             amount.innerText=data.amount;
             total_amount.innerText=data.total_amount;
             itemprice.innerText=data.item_total_price;
-            stocks.innerText=data.stock
-           if (data.quantity < 1 ){
+           if (data.ok==200){
             cid.parentNode.parentNode.parentNode.parentNode.remove()
            }
         }

@@ -15,7 +15,7 @@
    <p></p> <br>
    <h4>Rs. {{product.price}} <small class="fw-light text-decoration-line-through">15999</small></h4> <br>
 
-   <form action="/add-to-cart/">
+   <form action="/add-to-cart/" >
         <input type="hidden" name="product_id" value="{{product.id}}">
         {% if product.stock < 1 %}
         <p>Product is out of stock </p>

@@ -85,7 +85,6 @@ def ForgetPassword(request):
     try:
         if request.method == 'POST':
             username = request.POST.get('username')
-            
             if not User.objects.filter(username=username).first():
                 messages.success(request, 'Not user found with this username.')
                 return redirect('forgotPassword')
@@ -93,9 +92,11 @@ def ForgetPassword(request):
             user_obj = User.objects.get(username = username)
             mail=user_obj.email
             token = str(uuid.uuid4())
-            profile_obj= Profile.objects.get(user = user_obj)
+            profile_obj= Profile(user = user_obj)
+            print(profile_obj)
             profile_obj.forget_password_token = token
             profile_obj.save()
+            print(profile_obj)
             send_forget_password_mail(user_obj.email , token)
             messages.success(request, f'An email is sent to your email address {mail}.')
             return redirect('forgotPassword')
